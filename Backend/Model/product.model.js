@@ -39,6 +39,9 @@ const productSchema = new Schema(
         image: {
             type: String
         },
+        images: [{
+            type: String
+        }],
 
         isActive: {
             type: Boolean,

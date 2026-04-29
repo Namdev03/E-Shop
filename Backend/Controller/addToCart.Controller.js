@@ -4,7 +4,14 @@ async function addTOCart(req, res) {
         const payload = req.body
         const finduser = await addToCartSchema.findOne().populate('user', '_id ').populate('product', '_id');
         if (!finduser) {
-            return res.status(404).json({ message: "user not found" })
+            return res.status(404).json({ message: "cart entry not found" });
+        }
+        if (!finduser.user) {
+            return res.status(404).json({ message: "user not found" });
+        }
+
+        if (!finduser.product) {
+            return res.status(404).json({ message: "product not found" });
         }
         const cart = await addToCartSchema.create(payload)
         const toSend = {

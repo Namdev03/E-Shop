@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const usermiddleware = require('./MiddleWares/User.middelWare');
 const productRouter = require('./Routes/product.Routes');
 const addtocarRouter = require('./Routes/addToCart.Routes');
+const orderRoutes = require('./Routes/order.Routes')
  const server =express()
  //======Middel wares======
  server.use(express.json());
@@ -23,6 +24,8 @@ server.use('/uploads', express.static('uploads'));
 server.use('/product',productRouter)
  //=====addTOCart Routes ============
 server.use('/addtocart',addtocarRouter)
+ //=====order Routes ============
+server.use('/order',orderRoutes)
 const port = process.env.PORT
 server.listen(port,async()=> {
     try {
