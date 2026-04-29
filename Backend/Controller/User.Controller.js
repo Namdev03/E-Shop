@@ -34,21 +34,41 @@ async function loginUser(req, res) {
         }
         const toSend = {
             ...payload,
-            role:emailMatch.role,
+            role: emailMatch.role,
             password: emailMatch.password
         }
-        const token = jwt.sign(toSend, process.env.SECRET_KEY,{
-            expiresIn:60*60*1000
+        const token = jwt.sign(toSend, process.env.SECRET_KEY, {
+            expiresIn: 60 * 60 * 1000
         })
         res.cookie("token", token, {
-            httpOnly: true,      
-            secure: false,       
-            sameSite: "lax",     
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
             maxAge: 24 * 60 * 60 * 1000 // 1 day
-        });      
+        });
         res.status(200).json({ message: "login successfully", Data: toSend, token })
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
 }
-module.exports = { registerUser, loginUser }
+async function logoutuser(req, res) {
+    try {
+        const token = req.cookies.token;
+
+        if (!token) {
+            return res.status(404).json({ message: "token not found" });
+        }
+
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'Lax',
+        });
+
+        return res.status(200).json({ message: "Logged out successfully" });
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+module.exports = { registerUser, loginUser, logoutuser }

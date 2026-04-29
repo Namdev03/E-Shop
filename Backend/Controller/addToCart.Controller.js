@@ -2,7 +2,7 @@ const addToCartSchema = require('../Model/addToCart.model')
 async function addTOCart(req, res) {
     try {
         const payload = req.body
-        const finduser = await addToCartSchema.findOne().populate('user', '_id ').populate('product', '_id');
+        const finduser = await addToCartSchema.create(payload)
         if (!finduser) {
             return res.status(404).json({ message: "cart entry not found" });
         }
@@ -29,9 +29,9 @@ const Cart = require('../Model/addToCart.model');
 
 async function getCart(req, res) {
     try {
-        const { _id } = req.params;
+        const { userid } = req.params;
 
-        const cart = await addToCartSchema.find({ _id })
+        const cart = await addToCartSchema.find({userid })
             .populate('user', '_id name email')
             .populate('product', '_id name price category image');
 

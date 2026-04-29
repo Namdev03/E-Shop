@@ -20,7 +20,7 @@ const userSchema = new Schema({
     },
     role:{
         type:String,
-        default:"Buyer"
+        default:"Customer"
     }
 }, {
     timestamps: true
