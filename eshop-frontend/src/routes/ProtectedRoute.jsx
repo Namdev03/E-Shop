@@ -17,7 +17,6 @@ export function ProtectedRoute() {
   if (!isLoggedIn) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-
   return <Outlet />;
 }
 

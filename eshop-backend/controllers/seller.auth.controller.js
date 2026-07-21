@@ -22,7 +22,6 @@ const issueSessionAndRespond = async (res, req, seller, rememberMe, statusCode, 
     req,
     rememberMe,
   });
-
   setAuthCookies(res, { accessToken, refreshToken, rememberMe });
 
   const sellerObj = seller.toObject();

@@ -5,6 +5,9 @@ dotenv.config();
 
 export const twilioClient = twilio(
   process.env.TWILIO_ACCOUNT_SID,
+  console.log(process.env.TWILIO_ACCOUNT_SID),
+  console.log(process.env.TWILIO_AUTH_TOKEN),
+  
   process.env.TWILIO_AUTH_TOKEN
 );
 
