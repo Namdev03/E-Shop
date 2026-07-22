@@ -9,7 +9,7 @@ let socket = null;
  */
 export const getSocket = () => {
   if (!socket) {
-    socket = io(import.meta.env.VITE_SOCKET_URL || "http://localhost:5000", {
+    socket = io("https://e-shop-hopu.onrender.com" || "http://localhost:5000", {
       withCredentials: true,
       autoConnect: false,
     });
