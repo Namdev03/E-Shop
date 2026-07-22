@@ -44,10 +44,8 @@ export const initializeSocket = (httpServer) => {
       console.log(`Socket disconnected: ${room}`);
     });
   });
-
   return io;
 };
-
 export const getIo = () => {
   if (!io) throw new Error("Socket.IO has not been initialized yet");
   return io;
