@@ -38,8 +38,9 @@ const issueSessionAndRespond = async (res, req, user, rememberMe, statusCode, me
 export const signupUser = asyncHandler(async (req, res) => {
   const { fullName, email, phone, password } = req.body;
   // Field-level validation already ran via the validate() middleware
+  const numberFormat = phone.startsWith("+") ? phone : `+91${phone}`;
 
-  const existing = await User.findOne({ $or: [{ email }, { phone }] });
+  const existing = await User.findOne({ $or: [{ email }, { phone: numberFormat }] });
   if (existing) {
     throw new ApiError(409, "An account with this email or phone already exists");
   }
@@ -51,7 +52,7 @@ export const signupUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     fullName,
     email,
-    phone,
+    phone: numberFormat,
     password: hashedPassword,
     emailVerificationToken: crypto
       .createHash("sha256")
@@ -110,9 +111,13 @@ export const verifyEmail = asyncHandler(async (req, res) => {
  */
 export const loginUser = asyncHandler(async (req, res) => {
   const { emailOrPhone, password, rememberMe } = req.body;
-
+  const numberFormat = emailOrPhone.includes("@")
+    ? emailOrPhone
+    : emailOrPhone.startsWith("+")
+      ? emailOrPhone
+      : `+91${emailOrPhone}`;
   const user = await User.findOne({
-    $or: [{ email: emailOrPhone }, { phone: emailOrPhone }],
+    $or: [{ email: emailOrPhone }, { phone: numberFormat }],
   }).select("+password");
 
   if (!user) throw new ApiError(404, "Invalid credentials");
