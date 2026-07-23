@@ -39,8 +39,8 @@ export function Footer() {
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white/80">Contact</h4>
           <ul className="space-y-2 text-sm text-white/60">
             <li className="flex items-center gap-2"><Mail size={14} /> support@eshop.com</li>
-            <li className="flex items-center gap-2"><Phone size={14} /> +91 98765 43210</li>
-            <li className="flex items-center gap-2"><MapPin size={14} /> Bengaluru, India</li>
+            <li className="flex items-center gap-2"><Phone size={14} /> +91 6266976479</li>
+            <li className="flex items-center gap-2"><MapPin size={14} /> raipur,chhattishgarh, India</li>
           </ul>
         </div>
       </div>
